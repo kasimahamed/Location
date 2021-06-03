@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/k"
+    android:orientation="vertical"
+    tools:context=".Home_Activity.Activity_Home">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="180dp"
+        android:src="@drawable/ic_baseline_home_24"/>
+
+    <Button
+        android:id="@+id/mark_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="300dp"
+        android:text="Mark Places Form Google Map"
+        android:textStyle="italic"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/view_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="400dp"
+        android:text="View Marked Places                 "
+        android:textStyle="italic"
+        android:textAllCaps="false"/>
+
+</RelativeLayout>
