@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/k"
     android:orientation="vertical"
-    tools:context=".Home_Activity.Activity_Home">
+    tools:context=".Home_Activity.ActivityHome">
 
     <ImageView
         android:layout_width="match_parent"

@@ -32,16 +32,16 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".Map_Activities.Second_Mapp"
+            android:name=".SecondMapp"
             android:label="@string/title_activity_second_mapp"></activity>
-        <activity android:name=".Views.PlacesList_Data_view" />
-        <activity android:name=".Views.Name_Discription_view"/>
+        <activity android:name=".PlacesListDataview" />
+        <activity android:name=".NameDiscriptionview"/>
         <activity
-            android:name=".Map_Activities.First_Mapp"
+            android:name=".FirstMapp"
             android:label="@string/title_activity_mapp" />
-        <activity android:name=".Home_Activity.Activity_Home" />
-        <activity android:name=".Main_OTP_Verification.Otp" />
-        <activity android:name=".Main_OTP_Verification.MainActivity">
+        <activity android:name=".ActivityHome" />
+        <activity android:name=".Otp" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

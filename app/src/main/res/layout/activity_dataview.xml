@@ -6,13 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/teal_200"
-    tools:context=".Views.PlacesList_Data_view">
+    tools:context=".PlacesListDataview">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/user_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/unic_item"
-
-        />
+        tools:listitem="@layout/unic_item" />
 </LinearLayout>

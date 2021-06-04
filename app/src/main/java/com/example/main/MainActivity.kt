@@ -1,4 +1,4 @@
-package com.example.main.Main_OTP_Verification
+package com.example.main
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,8 +7,6 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.example.main.Home_Activity.Activity_Home
-import com.example.main.R
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
@@ -17,18 +15,12 @@ import com.google.firebase.auth.PhoneAuthProvider
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
-
-    var number: String = " "
-    private var auth: FirebaseAuth? = null
-    private var storedVerificationId: String? = null
-    private var resendToken: PhoneAuthProvider.ForceResendingToken? = null
     private var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        auth = FirebaseAuth.getInstance()
         findViewById<Button>(R.id.button_otp).setOnClickListener {
             login()
         }
@@ -40,23 +32,24 @@ class MainActivity : AppCompatActivity() {
                 finish()
             }
 
-            override fun onVerificationFailed(e: FirebaseException) {
-                Log.d("GFG", "onVerificationFailed  $e")
+            override fun onVerificationFailed(Exception: FirebaseException) {
+                Log.d("GFG", "onVerificationFailed  $Exception")
             }
 
             override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
-                Log.d("GFG", "onCodeSent: $verificationId")
-                storedVerificationId = verificationId
-                resendToken = token
-                val intent = Intent(applicationContext,Otp::class.java)
+                val storedVerificationId: String = verificationId
+                val resendToken: PhoneAuthProvider.ForceResendingToken
+                val intent = Intent(applicationContext, Otp::class.java)
                 intent.putExtra("storedVerificationId", storedVerificationId)
                 startActivity(intent)
                 finish()
+                Log.d("GFG", "onCodeSent: $verificationId")
             }
         }
     }
 
-    private fun login() {
+    private fun login(): String?{
+        var number: String = " "
         number = findViewById<EditText>(R.id.et_phone_number).text.trim().toString()
         if (number.isNotEmpty()) {
             number = "+91$number"
@@ -64,16 +57,18 @@ class MainActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "Enter mobile number", Toast.LENGTH_SHORT).show()
         }
+        return number
     }
 
-    private fun sendVerificationCode(number: String) {
-        val options = auth?.let {
-            callbacks?.let { it1 ->
+    private fun sendVerificationCode(number: String): FirebaseAuth {
+        val auth = FirebaseAuth.getInstance()
+        val options: PhoneAuthOptions? = auth.let {
+            callbacks?.let { place ->
                 PhoneAuthOptions.newBuilder(it)
                         .setPhoneNumber(number)
                         .setTimeout(60L, TimeUnit.SECONDS)
                         .setActivity(this)
-                        .setCallbacks(it1)
+                        .setCallbacks(place)
                         .build()
             }
         }
@@ -81,5 +76,6 @@ class MainActivity : AppCompatActivity() {
             PhoneAuthProvider.verifyPhoneNumber(options)
         }
         Log.d("GFG", "Auth started")
+        return auth
     }
 }

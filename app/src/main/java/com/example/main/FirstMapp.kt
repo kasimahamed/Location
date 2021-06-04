@@ -1,4 +1,4 @@
-package com.example.main.Map_Activities
+package com.example.main
 
 import android.Manifest
 import android.content.Intent
@@ -8,20 +8,24 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.main.Views.Name_Discription_view
-import com.example.main.R
-
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-open class First_Mapp : AppCompatActivity(), OnMapReadyCallback {
+open class FirstMapp : AppCompatActivity(), OnMapReadyCallback {
 
     private var map: GoogleMap? = null
     private val LOCATION_PERMISSION_REQUEST = 1
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_mapp)
+        val mapFragment = supportFragmentManager
+                .findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+    }
 
     private fun getLocationAccess() {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -46,20 +50,12 @@ open class First_Mapp : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_mapp)
-        val mapFragment = supportFragmentManager
-                .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
-    }
-
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         getLocationAccess()
 
         map?.setOnMapLongClickListener { latlng ->
-            val markedPlaces = LatLng(latlng.latitude, latlng.longitude)
+            val markedPlaces : LatLng = LatLng(latlng.latitude, latlng.longitude)
             map?.addMarker(MarkerOptions().position(markedPlaces))
 
             val lat: Double = latlng.latitude
@@ -72,7 +68,7 @@ open class First_Mapp : AppCompatActivity(), OnMapReadyCallback {
                 Toast.makeText(this, "Longitude Is :" + lng, Toast.LENGTH_SHORT).show()
             }
 
-            val intent = Intent(this, Name_Discription_view::class.java)
+            val intent = Intent(this, NameDiscriptionview::class.java)
             intent.putExtra("Lat", lat)
             intent.putExtra("Lng", lng)
             startActivity(intent)

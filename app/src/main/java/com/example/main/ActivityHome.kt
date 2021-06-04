@@ -1,14 +1,11 @@
-package com.example.main.Home_Activity
+package com.example.main
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import com.example.main.Map_Activities.First_Mapp
-import com.example.main.Views.PlacesList_Data_view
-import com.example.main.R
 
-class Activity_Home : AppCompatActivity() {
+class ActivityHome : AppCompatActivity() {
 
         val mark_btn by lazy { findViewById<Button>(R.id.mark_btn) }
         val view_btn by lazy { findViewById<Button>(R.id.view_btn) }
@@ -19,13 +16,13 @@ class Activity_Home : AppCompatActivity() {
 
         mark_btn.setOnClickListener()
        {
-           val intent = Intent(this, First_Mapp::class.java)
+           val intent = Intent(this, FirstMapp::class.java)
            startActivity(intent)
        }
 
         view_btn.setOnClickListener()
        {
-            val intent = Intent(this, PlacesList_Data_view::class.java)
+            val intent = Intent(this, PlacesListDataview::class.java)
             startActivity(intent)
        }
     }

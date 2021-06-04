@@ -1,4 +1,4 @@
-package com.example.main.RecyclerView_Adapter
+package com.example.main
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -7,19 +7,17 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.main.Data_Class.Location_Data_class
-import com.example.main.Map_Activities.Second_Mapp
-import com.example.main.R
+import com.example.main.dataclass.LocationDataClass
 import com.google.firebase.database.*
 
-class Location_Data_Adapter(private val datalist: ArrayList<Location_Data_class>) : RecyclerView.Adapter<Location_Data_Adapter.MyViewHolder>() {
+class LocationDataAdapter(private val datalist: ArrayList<LocationDataClass>) : RecyclerView.Adapter<LocationDataAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val placesview = LayoutInflater.from(parent.context).inflate(R.layout.unic_item, parent, false)
         return MyViewHolder(placesview)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val placesdata = datalist[position]
+        val placesdata : LocationDataClass = datalist[position]
 
         holder.name.text = placesdata.name
         holder.disc.text = placesdata.disc
@@ -27,14 +25,15 @@ class Location_Data_Adapter(private val datalist: ArrayList<Location_Data_class>
             deletePlacesData(placesdata)
         }
         holder.view_btn.setOnClickListener {
-            val intent = Intent(it.context, Second_Mapp::class.java)
+            val intent = Intent(it.context, SecondMapp::class.java)
             it.context.startActivity(intent)
         }
     }
 
-    private fun deletePlacesData(placedata: Location_Data_class) {
-        val delete_ref = FirebaseDatabase.getInstance().getReference("Datas")
+    private fun deletePlacesData(placedata: LocationDataClass): DatabaseReference {
+        val delete_ref: DatabaseReference = FirebaseDatabase.getInstance().getReference("Datas")
         placedata.id?.let { delete_ref.child(it).removeValue() }
+        return delete_ref
     }
 
     override fun getItemCount(): Int {
